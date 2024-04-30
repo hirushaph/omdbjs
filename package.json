@@ -5,11 +5,21 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "homepage": "https://github.com/hirushaph/omdbjs",
+  "repository": {
+    "url": "https://github.com/hirushaph/omdbjs"
+  },
   "scripts": {
     "build": "tsup"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "omdb",
+    "omdb api",
+    "omdbjs",
+    "omdb wrapper",
+    "omdb js"
+  ],
+  "author": "hirushaph",
   "license": "MIT",
   "devDependencies": {
     "dotenv": "^16.4.5",
