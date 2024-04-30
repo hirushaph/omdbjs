@@ -7,19 +7,19 @@ Simple Javascript wrapper for interacting with the Open Movie Database (OMDB) AP
 To use this wrapper in your project, you can install it via npm:
 
 ```bash
-npm install --save omdbjs
+npm install simple-omdb
 ```
 
 ## Import
 
 ```js
 // Using Modules
-import { OMDB } from "omdbjs";
+import { OMDB } from "simple-omdb";
 
 // OR
 
 // Using Common JS
-const { OMDB } = require("omdbjs");
+const { OMDB } = require("simple-omdb");
 ```
 
 ## 🌄 Initialization
