@@ -28,7 +28,7 @@ export class OMDB {
   public async search(
     query: string,
     extras?: SearchParams
-  ): Promise<SearchItem[]> {
+  ): Promise<SearchItem[] | []> {
     try {
       const extraParams = extras ? this.getOptionalParams(extras) : undefined;
       const res = await fetch(
@@ -59,7 +59,7 @@ export class OMDB {
   public async searchMovies(
     name: string,
     extras?: SearchByType
-  ): Promise<SearchItem[]> {
+  ): Promise<SearchItem[] | []> {
     try {
       const res = await this.search(name, { type: "movie", ...extras });
       return res;
@@ -78,7 +78,7 @@ export class OMDB {
   public async searchSeries(
     name: string,
     extras?: SearchByType
-  ): Promise<SearchItem[]> {
+  ): Promise<SearchItem[] | []> {
     try {
       const res = await this.search(name, { type: "series", ...extras });
       return res;
@@ -94,7 +94,7 @@ export class OMDB {
    * @returns {Object} - Movie or Series Information
    */
 
-  public async getById(id: string): Promise<MediaItem> {
+  public async getById(id: string): Promise<MediaItem | null> {
     try {
       const res = await fetch(`${this.baseUrl}/?apikey=${this.apiKey}&i=${id}`);
       const data = await res.json();
@@ -105,7 +105,7 @@ export class OMDB {
       }
 
       if (data.Response === "False") {
-        throw new Error(data.Error);
+        return null;
       }
       return data;
     } catch (error) {
@@ -154,7 +154,10 @@ export class OMDB {
    * @returns - Movie information or null
    */
 
-  public async getMovieByName(name: string, extras: GetOneByType) {
+  public async getMovieByName(
+    name: string,
+    extras: GetOneByType
+  ): Promise<MediaItem | null> {
     try {
       const data = this.getOneByName(name, { type: "movie", ...extras });
       return data;
@@ -171,7 +174,10 @@ export class OMDB {
    * @returns - Series information or null
    */
 
-  public async getSeriesByName(name: string, extras: GetOneByType) {
+  public async getSeriesByName(
+    name: string,
+    extras: GetOneByType
+  ): Promise<MediaItem | null> {
     try {
       const data = this.getOneByName(name, { type: "series", ...extras });
       return data;
