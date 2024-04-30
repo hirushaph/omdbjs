@@ -1,7 +1,6 @@
 import {
   GetOneByType,
   MediaItem,
-  OptionalParams,
   SearchByType,
   SearchItem,
   SearchParams,

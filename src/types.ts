@@ -13,6 +13,7 @@ export type MediaItem = {
   Country: string;
   Awards: string;
   Poster: string;
+  /** Array of Ratings */
   Ratings: { Source: string; Value: string }[];
   Metascore: string;
   imdbRating: string;
@@ -35,18 +36,22 @@ export type SearchItem = {
   Poster: string;
 };
 
-export interface OptionalParams {
-  year?: number; // Release Year
-  type?: "movie" | "series" | "episode"; // Media type movie | series | episodde
-}
+export type OptionalParams = {
+  /** Release year */
+  year?: number;
+  /** Media type movie | series | episode */
+  type?: "movie" | "series" | "episode";
+};
 
-export interface SingleItemParams extends OptionalParams {
-  plot?: "short" | "full"; // Get full plot or short plot - short | full
-}
+export type SingleItemParams = OptionalParams & {
+  /** Get full plot or short plot - short | full */
+  plot?: "short" | "full";
+};
 
-export interface SearchParams extends OptionalParams {
-  page?: number; // Page number - navigate trough search results pages
-}
+export type SearchParams = OptionalParams & {
+  /** Page number - navigate trough search results pages */
+  page?: number;
+};
 
 export type SearchByType = Omit<SearchParams, "type">;
 export type GetOneByType = Omit<SingleItemParams, "type">;
