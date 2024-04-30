@@ -21,10 +21,10 @@ export type MediaItem = {
   Type: "movie" | "series" | "episode";
   Response: string;
   totalSeasons?: string; // Only present for TV series
-  DVD?: string; // Only present for movies
-  BoxOffice?: string; // Only present for movies
-  Production?: string; // Only present for movies
-  Website?: string; // Only present for movies
+  DVD?: string;
+  BoxOffice?: string;
+  Production?: string;
+  Website?: string;
 };
 
 export type SearchItem = {
@@ -35,18 +35,18 @@ export type SearchItem = {
   Poster: string;
 };
 
-export type OptionalParams = {
+export interface OptionalParams {
   year?: number;
   type?: "movie" | "series" | "episode";
-};
+}
 
-export type SingleItemParams = OptionalParams & {
+export interface SingleItemParams extends OptionalParams {
   plot?: "short" | "full";
-};
+}
 
-export type SearchParams = OptionalParams & {
+export interface SearchParams extends OptionalParams {
   page?: number;
-};
+}
 
 export type SearchByType = Omit<SearchParams, "type">;
 export type GetOneByType = Omit<SingleItemParams, "type">;

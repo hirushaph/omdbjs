@@ -1,6 +1,7 @@
 import {
   GetOneByType,
   MediaItem,
+  OptionalParams,
   SearchByType,
   SearchItem,
   SearchParams,
@@ -29,9 +30,7 @@ export class OMDB {
     extras?: SearchParams
   ): Promise<SearchItem[]> {
     try {
-      const extraParams = extras
-        ? this.getOptionalParams(extras, "search")
-        : undefined;
+      const extraParams = extras ? this.getOptionalParams(extras) : undefined;
       console.log(extraParams);
       const res = await fetch(
         `${this.baseUrl}/?apikey=${this.apiKey}&s=${query}${
@@ -40,7 +39,10 @@ export class OMDB {
       );
       const data = await res.json();
 
-      if (!res.ok) throw new Error("Failed to fetch search data");
+      if (!res.ok) {
+        if (res.status === 401) throw new Error(data.Error);
+        throw new Error("Failed to fetch search data");
+      }
 
       return data.Search || [];
     } catch (error) {
@@ -98,7 +100,10 @@ export class OMDB {
       const res = await fetch(`${this.baseUrl}/?apikey=${this.apiKey}&i=${id}`);
       const data = await res.json();
 
-      if (!res.ok) throw new Error("Failed to fetch by id");
+      if (!res.ok) {
+        if (res.status === 401) throw new Error(data.Error);
+        throw new Error("Failed to fetch search data");
+      }
 
       if (data.Response === "False") {
         throw new Error(data.Error);
@@ -121,16 +126,19 @@ export class OMDB {
     extras: SingleItemParams
   ): Promise<MediaItem | null> {
     try {
-      const extraParams = extras
-        ? this.getOptionalParams(extras, "single")
-        : undefined;
+      const extraParams = extras ? this.getOptionalParams(extras) : undefined;
       console.log(extraParams);
       const res = await fetch(
         `${this.baseUrl}/?apikey=${this.apiKey}&t=${name}${extraParams}`
       );
       const data = await res.json();
+      console.log(data);
+      console.log(res.status);
 
-      if (!res.ok) throw new Error("Failed to fetch by name");
+      if (!res.ok) {
+        if (res.status === 401) throw new Error(data.Error);
+        throw new Error("Failed to fetch search data");
+      }
 
       if (data.Response === "False") {
         return null;
@@ -176,26 +184,21 @@ export class OMDB {
   }
 
   private getOptionalParams(
-    queryParams: SearchParams | SingleItemParams,
-    type: string
+    queryParams: SearchParams | SingleItemParams
   ): string {
-    const keys: { [key: string]: string } = {
-      year: "y",
-      type: "type",
-      page: "page",
-      plot: "plot",
+    let params = {
+      y: queryParams?.year,
+      type: queryParams?.type,
+      plot: "plot" in queryParams ? queryParams.plot : undefined,
+      page: "page" in queryParams ? queryParams.page : undefined,
     };
 
-    const urlParams = Object.entries(queryParams)
+    const urlParam = Object.entries(params)
       .map(([key, value]) => {
-        if (key === undefined && value === undefined) return;
-        if (key === "page" && type === "single") return;
-        if (key === "plot" && type === "search") return;
-        return `${keys[key]}=${value}`;
+        if (value === undefined) return;
+        return `&${key}=${value}`;
       })
-      .filter((str) => str !== "")
-      .join("&");
-
-    return "&" + urlParams;
+      .join("");
+    return urlParam;
   }
 }
