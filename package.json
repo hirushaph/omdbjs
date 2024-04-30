@@ -1,7 +1,7 @@
 {
   "name": "simple-omdb",
   "version": "0.0.1",
-  "description": "Unofficial javascript wrapper for omdb api",
+  "description": "Simple javascript wrapper for OMDB API",
   "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -14,7 +14,7 @@
     "build": "tsup"
   },
   "keywords": [
-    "omdb",
+    "simple omdb",
     "omdb api",
     "omdbjs",
     "omdb wrapper",
