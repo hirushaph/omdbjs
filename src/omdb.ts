@@ -31,7 +31,6 @@ export class OMDB {
   ): Promise<SearchItem[]> {
     try {
       const extraParams = extras ? this.getOptionalParams(extras) : undefined;
-      console.log(extraParams);
       const res = await fetch(
         `${this.baseUrl}/?apikey=${this.apiKey}&s=${query}${
           extraParams ? extraParams : ""
@@ -127,13 +126,11 @@ export class OMDB {
   ): Promise<MediaItem | null> {
     try {
       const extraParams = extras ? this.getOptionalParams(extras) : undefined;
-      console.log(extraParams);
+
       const res = await fetch(
         `${this.baseUrl}/?apikey=${this.apiKey}&t=${name}${extraParams}`
       );
       const data = await res.json();
-      console.log(data);
-      console.log(res.status);
 
       if (!res.ok) {
         if (res.status === 401) throw new Error(data.Error);

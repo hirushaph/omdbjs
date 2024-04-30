@@ -36,16 +36,16 @@ export type SearchItem = {
 };
 
 export interface OptionalParams {
-  year?: number;
-  type?: "movie" | "series" | "episode";
+  year?: number; // Release Year
+  type?: "movie" | "series" | "episode"; // Media type movie | series | episodde
 }
 
 export interface SingleItemParams extends OptionalParams {
-  plot?: "short" | "full";
+  plot?: "short" | "full"; // Get full plot or short plot - short | full
 }
 
 export interface SearchParams extends OptionalParams {
-  page?: number;
+  page?: number; // Page number - navigate trough search results pages
 }
 
 export type SearchByType = Omit<SearchParams, "type">;
