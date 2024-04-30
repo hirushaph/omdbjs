@@ -2,6 +2,7 @@
   "name": "omdbjs",
   "version": "0.0.1",
   "description": "Unofficial javascript wrapper for omdb api",
+  "private": false,
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
