@@ -1,6 +1,6 @@
 import {
+  GetOneByType,
   MediaItem,
-  OptionalParams,
   SearchByType,
   SearchItem,
   SearchParams,
@@ -51,37 +51,45 @@ export class OMDB {
   /**
    * Search Movies
    *
-   * @param name - Movie Name
-   * @param extras - Extra Options
+   * @param {string} name - Movie Name
+   * @param {object} extras - Extra Options
    * @returns - Array of Search Results or empty array
    */
   public async searchMovies(
     name: string,
     extras?: SearchByType
   ): Promise<SearchItem[]> {
-    const res = await this.search(name, { type: "movie", ...extras });
-    return res;
+    try {
+      const res = await this.search(name, { type: "movie", ...extras });
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
    * Search Tv Series
    *
-   * @param name - Tv Series Name
-   * @param extras - Extra Options
+   * @param {string} name - Tv Series Name
+   * @param {object} extras - Extra Options
    * @returns Array of series or empty array
    */
   public async searchSeries(
     name: string,
     extras?: SearchByType
   ): Promise<SearchItem[]> {
-    const res = await this.search(name, { type: "series", ...extras });
-    return res;
+    try {
+      const res = await this.search(name, { type: "series", ...extras });
+      return res;
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
    * Get movie or series info by id
    *
-   * @param id - IMDB ID
+   * @param {string} id - IMDB ID
    * @returns {Object} - Movie or Series Information
    */
 
@@ -105,12 +113,13 @@ export class OMDB {
    * Search and get one movie or series by name
    *
    * @param {string} name - Movie or Series name
-   * @returns {object} - One Movie or Series info
+   * @returns {object} - One Movie or Series info or null
    */
+
   public async getOneByName(
     name: string,
     extras: SingleItemParams
-  ): Promise<MediaItem> {
+  ): Promise<MediaItem | null> {
     try {
       const extraParams = extras
         ? this.getOptionalParams(extras, "single")
@@ -124,8 +133,42 @@ export class OMDB {
       if (!res.ok) throw new Error("Failed to fetch by name");
 
       if (data.Response === "False") {
-        throw new Error(data.Error);
+        return null;
       }
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Search and Get One Movie By Name
+   *
+   * @param {string} name - Movie name
+   * @param {object} extras - Extra options
+   * @returns - Movie information or null
+   */
+
+  public async getMovieByName(name: string, extras: GetOneByType) {
+    try {
+      const data = this.getOneByName(name, { type: "movie", ...extras });
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Search and Get One Series By Name
+   *
+   * @param {string} name - Series name
+   * @param {object} extras - Extra options
+   * @returns - Series information or null
+   */
+
+  public async getSeriesByName(name: string, extras: GetOneByType) {
+    try {
+      const data = this.getOneByName(name, { type: "series", ...extras });
       return data;
     } catch (error) {
       throw error;

@@ -49,3 +49,4 @@ export type SearchParams = OptionalParams & {
 };
 
 export type SearchByType = Omit<SearchParams, "type">;
+export type GetOneByType = Omit<SingleItemParams, "type">;
