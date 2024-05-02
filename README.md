@@ -39,7 +39,7 @@ const omdb = new OMDB("your_api_key_here");
 // SEARCH FOR MOVIES OR SERIES
 
 // Returns list of movies or series related to "Avengers"
-const results = await omdb.searchMovies("Avengers");
+const results = await omdb.search("Avengers");
 
 // Return list of results realted to "avengers" and added options
 const results = await omdb.search("Avengers", {
@@ -49,7 +49,7 @@ const results = await omdb.search("Avengers", {
   page: 1, // page number for results
 });
 
-// ===== ONLY GET MOVIE RESULTS =====
+// ===== GET ONLY MOVIE RESULTS =====
 
 // Return list of movies related to avengers
 const movieResults = await omdb.searchMovies("Avengers");
@@ -66,7 +66,7 @@ const movieResults = await omdb.searchMovies("avengers", {
   page: 1; // results page number
 }
 
-// ===== ONLY GET TV SERIES RESULTS =====
+// ===== GET ONLY TV SERIES RESULTS =====
 
 const seriesResults = await omdb.searchMovies("See");
 
@@ -116,6 +116,7 @@ const movie = await omdb.getMovieByName("moviename",{
 
 // GET ONLY SINGLE SERIES
 
+// return best matching series for "seriesname"
 const series = await omdb.getSeriesByName("seriesname")
 
 // With extra options - optional

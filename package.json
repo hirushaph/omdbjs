@@ -6,9 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "homepage": "https://github.com/hirushaph/omdbjs",
+  "homepage": "https://github.com/hirushaph/simple-omdb",
   "repository": {
-    "url": "https://github.com/hirushaph/omdbjs"
+    "url": "https://github.com/hirushaph/simple-omdb"
   },
   "scripts": {
     "build": "tsup"
@@ -18,7 +18,8 @@
     "omdb api",
     "omdbjs",
     "omdb wrapper",
-    "omdb js"
+    "omdb js",
+    "omdb"
   ],
   "author": "hirushaph",
   "license": "MIT",
