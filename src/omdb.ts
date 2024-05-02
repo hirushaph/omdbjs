@@ -74,6 +74,7 @@ export class OMDB {
    * @param {object} extras - Extra Options
    * @returns Array of series or empty array
    */
+
   public async searchSeries(
     name: string,
     extras?: SearchByType
@@ -121,7 +122,7 @@ export class OMDB {
 
   public async getOneByName(
     name: string,
-    extras: SingleItemParams
+    extras?: SingleItemParams
   ): Promise<MediaItem | null> {
     try {
       const extraParams = extras ? this.getOptionalParams(extras) : undefined;
@@ -155,7 +156,7 @@ export class OMDB {
 
   public async getMovieByName(
     name: string,
-    extras: GetOneByType
+    extras?: GetOneByType
   ): Promise<MediaItem | null> {
     try {
       const data = this.getOneByName(name, { type: "movie", ...extras });
@@ -175,7 +176,7 @@ export class OMDB {
 
   public async getSeriesByName(
     name: string,
-    extras: GetOneByType
+    extras?: GetOneByType
   ): Promise<MediaItem | null> {
     try {
       const data = this.getOneByName(name, { type: "series", ...extras });
