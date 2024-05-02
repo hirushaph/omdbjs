@@ -10,7 +10,7 @@ To use this wrapper in your project, you can install it via npm:
 npm install simple-omdb
 ```
 
-## Import
+## 📥 Import
 
 ```js
 // Using Modules
